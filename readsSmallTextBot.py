@@ -12,10 +12,14 @@ def get_config():
   return config
 
 def get_suped(comment):
-  sup_words = [word for word in comment.split() if word.count('^') >= 3]
-  unreadable_fragments = [p.findall(word)[0] for word in sup_words]
-  results = [" ".join(filter(None, word.split('^'))) for word in unreadable_fragments]
-  return results
+  r = []
+  for line in comment.split('\n'):
+    sup_words = [word for word in line.split() if word.count('^') >= 3]
+    unreadable_fragments = [p.findall(word)[0] for word in sup_words]
+    results = [" ".join(filter(None, word.split('^'))) for word in unreadable_fragments]
+    if results:
+      r.append(" ".join(results))
+  return r
 
 def build_comment(suped):
   return "\n\n".join(suped)

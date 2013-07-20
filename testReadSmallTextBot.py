@@ -13,7 +13,11 @@ class TestReadsSmallTextBot(unittest.TestCase):
     r = readsSmallTextBot.get_suped('Only^really^small text^^should be^found^by^this^bot')
     self.assertItemsEqual(r, ['this bot'])
     r = readsSmallTextBot.get_suped('A test^^^comment for^^testing^this^bot')
-    self.assertItemsEqual(r, ['comment', 'this bot'])
+    self.assertItemsEqual(r, ['comment this bot'])
+    r = readsSmallTextBot.get_suped('A test^^^comment ^^^testing')
+    self.assertItemsEqual(r, ['comment testing'])
+    r = readsSmallTextBot.get_suped('A test^^^comment\n^^^testing')
+    self.assertItemsEqual(r, ['comment', 'testing'])
 
   def test_build_comment(self):
     r = readsSmallTextBot.build_comment(['comment'])
