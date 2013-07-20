@@ -6,6 +6,7 @@ import re
 p = re.compile('(?:\^[^\^]*){2}\^(.*)')
 
 def get_config():
+  print 'Loading config'
   json_data = open('config.json', 'r').read()
   config = json.loads(json_data)
   return config
@@ -19,33 +20,39 @@ def get_suped(comment):
 def build_comment(suped):
   return "\n\n".join(suped)
 
-def login():
-  print 'Loading config'
-  config = get_config()
-  print 'Logging in to Reddit as ' + config['username']
+def login(username, password):
+  print 'Logging in to Reddit as ' + username
   r = praw.Reddit('ReadsSmallTextBot - reads sup text - by /u/doogle88 v 0.1')
-  r.login(config['username'], config['password'])
+  r.login(username, password)
   print 'Done'
   return r
 
 def run_bot():
-  r = login()
+  config = get_config()
+  username = config['username']
+  password = config['password']
+  r = login(username, password)
+  subreddits = config['subreddits']
+
   already_done = []
 
   while True:
-    subreddit = r.get_subreddit('botcirclejerk')
-    print 'Getting submissions'
-    for submission in subreddit.get_hot(limit=10):
-      print 'Getting comments for: ' + submission.id
-      flat_comments = praw.helpers.flatten_tree(submission.comments)
-      for comment in flat_comments:
-        suped = get_suped(comment.body)
-        if suped and submission.id not in already_done:
-          print 'Suped comment found: ' + comment.id
+    print 'Getting comments for ' + subreddits
+    subreddit = r.get_subreddit(subreddits)
+    comments = subreddit.get_comments(limit=None)
+
+    for comment in comments:
+      suped = get_suped(comment.body)
+      if suped and comment.id not in already_done:
+        if any(reply for reply in comment.replies if reply.author and reply.author.name == username):
+          print 'Suped comment found: ' + comment.id + ' - skipping (already replied)'
+        else:
+          print 'Suped comment found: ' + comment.id + ' - replying'
           msg = build_comment(suped)
           comment.reply(msg)
-          already_done.append(comment.id)
-    time.sleep(1800)
+        already_done.append(comment.id)
+
+    time.sleep(120)
 
 if __name__ == '__main__':
   run_bot()

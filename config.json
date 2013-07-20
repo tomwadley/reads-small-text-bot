@@ -1,4 +1,5 @@
 {
   "username": "ReadsSmallTextBot",
-  "password": "xxxxx"
+  "password": "xxxxx",
+  "subreddits": "all"
 }
