@@ -28,7 +28,8 @@ def build_comment(suped):
 
 def login(username, password):
   print 'Logging in to Reddit as ' + username
-  r = praw.Reddit('ReadsSmallTextBot - reads sup text - by /u/doogle88 v 0.1')
+  r = praw.Reddit('ReadsSmallTextBot - reads sup text - by /u/doogle88 v 0.1'
+                  'https://github.com/tomwadley/reads-small-text-bot')
   r.login(username, password)
   print 'Done'
   return r
