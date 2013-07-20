@@ -58,6 +58,15 @@ def run_bot():
 
     time.sleep(120)
 
+def bot_harness():
+  while True:
+    try:
+      run_bot()
+    except Exception as e:
+      print 'Error - will sleep for 10 mins: ' + e
+      time.sleep(600)
+      pass
+
 if __name__ == '__main__':
-  run_bot()
+  bot_harness()
 

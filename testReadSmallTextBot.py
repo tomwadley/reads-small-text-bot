@@ -25,8 +25,5 @@ class TestReadsSmallTextBot(unittest.TestCase):
     r = readsSmallTextBot.build_comment(['comment', 'this bot'])
     self.assertEquals('comment\n\nthis bot', r)
 
-  def test_get_config(self):
-    config = readsSmallTextBot.get_config()
-
 if __name__ == '__main__':
   unittest.main()
