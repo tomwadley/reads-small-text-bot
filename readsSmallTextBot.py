@@ -2,6 +2,8 @@ import praw
 import json
 import time
 import re
+import sys
+import traceback
 
 p = re.compile('(?:\^[^\^]*){2}\^(.*)')
 
@@ -62,8 +64,10 @@ def bot_harness():
   while True:
     try:
       run_bot()
-    except Exception as e:
-      print 'Error - will sleep for 10 mins: ' + e
+    except:
+      exc_type, exc_value, exc_traceback = sys.exc_info()
+      traceback.print_exception(exc_type, exc_value, exc_traceback)
+      print 'Error - will sleep for 10 mins'
       time.sleep(600)
       pass
 
