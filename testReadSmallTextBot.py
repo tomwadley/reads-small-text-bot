@@ -18,6 +18,8 @@ class TestReadsSmallTextBot(unittest.TestCase):
     self.assertItemsEqual(r, ['comment testing'])
     r = readsSmallTextBot.get_suped('A test^^^comment\n^^^testing')
     self.assertItemsEqual(r, ['comment', 'testing'])
+    r = readsSmallTextBot.get_suped('test^^^&#3232;&#9181;&#3232;')
+    self.assertItemsEqual(r, ['&#3232;&#9181;&#3232;'])
 
   def test_build_comment(self):
     r = readsSmallTextBot.build_comment(['comment'])

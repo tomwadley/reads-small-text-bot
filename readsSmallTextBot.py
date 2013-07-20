@@ -31,6 +31,7 @@ def login(username, password):
   r = praw.Reddit('ReadsSmallTextBot - reads sup text - by /u/doogle88 v 0.1'
                   'https://github.com/tomwadley/reads-small-text-bot')
   r.login(username, password)
+  r.config.decode_html_entities = True
   print 'Done'
   return r
 
