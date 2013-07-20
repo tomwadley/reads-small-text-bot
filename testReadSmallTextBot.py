@@ -21,9 +21,9 @@ class TestReadsSmallTextBot(unittest.TestCase):
 
   def test_build_comment(self):
     r = readsSmallTextBot.build_comment(['comment'])
-    self.assertEquals('comment', r)
+    self.assertEquals('>comment', r)
     r = readsSmallTextBot.build_comment(['comment', 'this bot'])
-    self.assertEquals('comment\n\nthis bot', r)
+    self.assertEquals('>comment\n\n>this bot', r)
 
 if __name__ == '__main__':
   unittest.main()

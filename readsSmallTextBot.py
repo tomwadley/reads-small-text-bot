@@ -24,7 +24,7 @@ def get_suped(comment):
   return r
 
 def build_comment(suped):
-  return "\n\n".join(suped)
+  return "\n\n".join(['>' + line for line in suped])
 
 def login(username, password):
   print 'Logging in to Reddit as ' + username
