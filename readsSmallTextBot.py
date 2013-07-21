@@ -60,7 +60,7 @@ def run_bot():
           comment.reply(msg)
         already_done.append(comment.id)
 
-    time.sleep(120)
+    time.sleep(10)
 
 def bot_harness():
   while True:
