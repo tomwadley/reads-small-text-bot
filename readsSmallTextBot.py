@@ -69,8 +69,8 @@ def bot_harness():
     except:
       exc_type, exc_value, exc_traceback = sys.exc_info()
       traceback.print_exception(exc_type, exc_value, exc_traceback)
-      print 'Error - will sleep for 10 mins'
-      time.sleep(600)
+      print 'Error - will sleep for 2 mins'
+      time.sleep(120)
       pass
 
 if __name__ == '__main__':
